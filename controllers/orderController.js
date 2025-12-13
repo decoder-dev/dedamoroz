@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
-const telegramService = require('../services/telegramService');
+const telegramBot = require('../services/telegramBot');
+const logger = require('../middleware/logger');
 
 class OrderController {
     async create(req, res, next) {
@@ -8,11 +9,18 @@ class OrderController {
             
             // Отправка уведомления в Telegram
             try {
-                await telegramService.notifyNewOrder(order);
+                const telegramResult = await telegramBot.notifyNewOrder(order);
+                if (telegramResult.success) {
+                    logger.success(`✅ Уведомление в Telegram отправлено для заявки #${order.id}`);
+                } else {
+                    logger.warn(`⚠️ Не удалось отправить уведомление в Telegram для заявки #${order.id}:`, telegramResult.message);
+                }
             } catch (telegramError) {
                 // Логируем ошибку, но не прерываем создание заявки
-                console.error('⚠️ Ошибка отправки в Telegram:', telegramError);
+                logger.error('⚠️ Ошибка отправки в Telegram:', telegramError);
             }
+            
+            logger.info(`📝 Создана новая заявка #${order.id}`, { name: order.name, phone: order.phone });
             
             res.status(201).json({
                 success: true,

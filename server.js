@@ -6,6 +6,7 @@ const config = require('./config/config');
 const db = require('./config/database');
 const orderRoutes = require('./routes/orderRoutes');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
+const logger = require('./middleware/logger');
 
 const app = express();
 
@@ -27,14 +28,27 @@ app.use(express.static(path.join(__dirname, 'public'), {
 
 // Логирование запросов
 app.use((req, res, next) => {
-    if (config.nodeEnv === 'development') {
-        console.log(`${req.method} ${req.path}`);
-    }
+    const start = Date.now();
+    
+    res.on('finish', () => {
+        const duration = Date.now() - start;
+        const logMessage = `${req.method} ${req.path} ${res.statusCode} ${duration}ms`;
+        
+        if (res.statusCode >= 500) {
+            logger.error(logMessage);
+        } else if (res.statusCode >= 400) {
+            logger.warn(logMessage);
+        } else {
+            logger.info(logMessage);
+        }
+    });
+    
     next();
 });
 
 // API Routes
 app.use('/api/orders', orderRoutes);
+app.use('/api/telegram', require('./routes/telegramRoutes'));
 
 // HTML Routes
 app.get('/', (req, res) => {
@@ -66,51 +80,52 @@ async function startServer() {
         
         // Запуск сервера
         app.listen(config.port, () => {
-            console.log('\n🚀 ========================================');
-            console.log(`✅ Сервер запущен на http://localhost:${config.port}`);
-            console.log(`📁 Статические файлы: ${path.join(__dirname, 'public')}`);
-            console.log(`📄 HTML файлы: ${path.join(__dirname, 'views')}`);
-            console.log(`🌍 Окружение: ${config.nodeEnv}`);
-            console.log('========================================\n');
+            logger.success('\n🚀 ========================================');
+            logger.success(`✅ Сервер запущен на http://localhost:${config.port}`);
+            logger.info(`📁 Статические файлы: ${path.join(__dirname, 'public')}`);
+            logger.info(`📄 HTML файлы: ${path.join(__dirname, 'views')}`);
+            logger.info(`🌍 Окружение: ${config.nodeEnv}`);
+            logger.info(`📱 Telegram: ${config.telegram.enabled ? '✅ Включен' : '❌ Отключен'}`);
+            logger.success('========================================\n');
         });
     } catch (error) {
-        console.error('❌ Ошибка запуска сервера:', error);
+        logger.error('❌ Ошибка запуска сервера:', error);
         process.exit(1);
     }
 }
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
-    console.log('\n⏳ Завершение работы сервера...');
+    logger.info('\n⏳ Завершение работы сервера...');
     try {
         await db.close();
-        console.log('✅ Сервер успешно остановлен');
+        logger.success('✅ Сервер успешно остановлен');
         process.exit(0);
     } catch (error) {
-        console.error('❌ Ошибка при остановке сервера:', error);
+        logger.error('❌ Ошибка при остановке сервера:', error);
         process.exit(1);
     }
 });
 
 process.on('SIGTERM', async () => {
-    console.log('\n⏳ Завершение работы сервера...');
+    logger.info('\n⏳ Завершение работы сервера...');
     try {
         await db.close();
-        console.log('✅ Сервер успешно остановлен');
+        logger.success('✅ Сервер успешно остановлен');
         process.exit(0);
     } catch (error) {
-        console.error('❌ Ошибка при остановке сервера:', error);
+        logger.error('❌ Ошибка при остановке сервера:', error);
         process.exit(1);
     }
 });
 
 // Обработка необработанных ошибок
 process.on('unhandledRejection', (reason, promise) => {
-    console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+    logger.error('❌ Unhandled Rejection at:', { promise, reason });
 });
 
 process.on('uncaughtException', (error) => {
-    console.error('❌ Uncaught Exception:', error);
+    logger.error('❌ Uncaught Exception:', error);
     process.exit(1);
 });
 

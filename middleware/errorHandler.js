@@ -1,5 +1,7 @@
+const logger = require('./logger');
+
 const errorHandler = (err, req, res, next) => {
-    console.error('❌ Ошибка:', {
+    logger.error('❌ Ошибка:', {
         message: err.message,
         stack: process.env.NODE_ENV === 'development' ? err.stack : undefined,
         url: req.url,
