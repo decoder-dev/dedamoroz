@@ -854,74 +854,16 @@ section {
     font-size: 5rem;
     font-weight: 800;
     margin-bottom: 20px;
-    color: #228b22;
-    text-shadow: 
-        /* 3D эффект - множественные тени для объема */
-        3px 3px 0px #1a6b1a,
-        6px 6px 0px #155015,
-        9px 9px 0px #0f3f0f,
-        12px 12px 0px #0a2f0a,
-        15px 15px 0px #051f05,
-        /* Свечение */
-        0 0 30px rgba(34, 139, 34, 0.9),
-        0 0 50px rgba(34, 139, 34, 0.7),
-        0 0 70px rgba(34, 139, 34, 0.5),
-        /* Игрушки на буквах */
-        20px 8px 0px #dc143c,
-        50px 12px 0px #ffd700,
-        80px 6px 0px #dc143c,
-        110px 15px 0px #ffd700,
-        140px 9px 0px #dc143c,
-        170px 11px 0px #ffd700,
-        200px 7px 0px #dc143c,
-        230px 13px 0px #ffd700,
-        260px 8px 0px #dc143c,
-        290px 14px 0px #ffd700,
-        320px 6px 0px #dc143c,
-        350px 12px 0px #ffd700,
-        380px 9px 0px #dc143c,
-        410px 15px 0px #ffd700,
-        /* Дополнительные игрушки */
-        35px 18px 0px #ff1493,
-        65px 22px 0px #00bfff,
-        95px 16px 0px #ff1493,
-        125px 20px 0px #00bfff,
-        155px 19px 0px #ff1493,
-        185px 23px 0px #00bfff,
-        215px 17px 0px #ff1493,
-        245px 21px 0px #00bfff,
-        275px 18px 0px #ff1493,
-        305px 22px 0px #00bfff,
-        335px 16px 0px #ff1493,
-        365px 20px 0px #00bfff,
-        395px 19px 0px #ff1493,
-        425px 23px 0px #00bfff;
-    background: 
-        repeating-linear-gradient(
-            90deg,
-            #228b22 0px,
-            #2d9a2d 2px,
-            #228b22 4px,
-            #1a6b1a 6px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            #228b22 0px,
-            #2d9a2d 1px,
-            #228b22 2px,
-            #1a6b1a 3px
-        ),
-        linear-gradient(135deg, #228b22 0%, #2d9a2d 25%, #228b22 50%, #1a6b1a 75%, #228b22 100%);
-    background-size: 10px 10px, 10px 10px, 100% 100%;
+    background: linear-gradient(135deg, #9acd32 0%, #adff2f 50%, #32cd32 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite, treeTexture 3s ease-in-out infinite;
-    will-change: background-position, transform;
+    text-shadow: 0 0 30px rgba(154, 205, 50, 0.8),
+                 0 0 50px rgba(173, 255, 47, 0.6),
+                 0 0 70px rgba(50, 205, 50, 0.4);
+    animation: gradientShift 5s ease infinite;
+    will-change: background-position;
     position: relative;
-    transform: perspective(600px) rotateX(8deg) translateZ(0);
-    transform-style: preserve-3d;
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
 }
 
 .hero-title::before {
