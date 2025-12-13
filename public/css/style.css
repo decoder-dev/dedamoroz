@@ -5,24 +5,50 @@
 }
 
 :root {
-    --primary-red: #ff1744;
-    --primary-green: #00e676;
-    --primary-blue: #00bcd4;
-    --primary-yellow: #ffd600;
-    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    /* Новогодние цвета */
+    --xmas-red: #dc143c;
+    --xmas-green: #228b22;
+    --xmas-gold: #ffd700;
+    --xmas-silver: #c0c0c0;
+    --xmas-dark: #0a0e27;
+    --xmas-snow: #fffafa;
+    
+    /* Градиенты */
+    --gradient-xmas: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffd700 100%);
+    --gradient-snow: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #2d1b4e 100%);
+    --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+    --gradient-red-green: linear-gradient(135deg, #dc143c 0%, #228b22 100%);
+    
+    /* Тени */
+    --shadow-glow-red: 0 0 20px rgba(220, 20, 60, 0.5), 0 0 40px rgba(220, 20, 60, 0.3);
+    --shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
+    --shadow-glow-green: 0 0 20px rgba(34, 139, 34, 0.5), 0 0 40px rgba(34, 139, 34, 0.3);
 }
 
 body {
     margin: 0;
-    background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #2d1b4e 100%);
+    background: var(--gradient-snow);
     background-attachment: fixed;
     overflow-x: hidden;
     font-family: 'Montserrat', 'Arial', sans-serif;
     color: #fff;
     position: relative;
+}
+
+/* Новогодний паттерн фона */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(34, 139, 34, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Декоративные звезды */
@@ -46,8 +72,14 @@ body {
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.5); }
+    0%, 100% { 
+        opacity: 0.3; 
+        transform: scale(1) rotate(0deg); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.8) rotate(180deg); 
+    }
 }
 
 canvas {
@@ -90,16 +122,53 @@ canvas {
     font-size: 4.5rem;
     margin-bottom: 15px;
     font-weight: 800;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5),
-                 0 0 60px rgba(255, 215, 0, 0.3),
+    text-shadow: var(--shadow-glow-gold),
                  2px 2px 4px rgba(0, 0, 0, 0.8);
-    background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffe66d, #ffd700);
+    background: var(--gradient-xmas);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite;
+    animation: gradientShift 3s ease infinite, pulse 2s ease-in-out infinite;
     letter-spacing: 2px;
+    position: relative;
+}
+
+.header h1::before {
+    content: '🎄';
+    position: absolute;
+    left: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    animation: rotate 3s linear infinite;
+    filter: drop-shadow(0 0 10px rgba(34, 139, 34, 0.6));
+}
+
+.header h1::after {
+    content: '🎅';
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(220, 20, 60, 0.6));
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes rotate {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(-50%) translateY(0); }
+    50% { transform: translateY(-50%) translateY(-10px); }
 }
 
 @keyframes gradientShift {
@@ -125,19 +194,36 @@ canvas {
 }
 
 .order-form {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(10, 14, 39, 0.7);
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 50px 40px;
     max-width: 550px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+                0 0 0 2px rgba(220, 20, 60, 0.3),
+                0 0 0 4px rgba(34, 139, 34, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    animation: slideUp 1s ease-out 0.3s both;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    animation: slideUp 1s ease-out 0.3s both, formGlow 3s ease-in-out infinite;
     position: relative;
     overflow: hidden;
+}
+
+@keyframes formGlow {
+    0%, 100% {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+                    0 0 0 2px rgba(220, 20, 60, 0.3),
+                    0 0 0 4px rgba(34, 139, 34, 0.2),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7),
+                    0 0 0 3px rgba(220, 20, 60, 0.5),
+                    0 0 0 6px rgba(34, 139, 34, 0.4),
+                    0 0 30px rgba(255, 215, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
 }
 
 .order-form::before {
@@ -147,8 +233,22 @@ canvas {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(220, 20, 60, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(34, 139, 34, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
     animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+
+.order-form::after {
+    content: '❄️';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: twinkle 2s ease-in-out infinite;
     pointer-events: none;
 }
 
@@ -175,8 +275,9 @@ canvas {
     margin-bottom: 12px;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #ffe66d;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    color: var(--xmas-gold);
+    text-shadow: var(--shadow-glow-gold),
+                 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .form-group label .icon {
@@ -206,10 +307,10 @@ canvas {
 
 .form-group input:focus {
     outline: none;
-    border-color: #4ecdc4;
+    border-color: var(--xmas-gold);
     background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 20px rgba(78, 205, 196, 0.4),
-                inset 0 0 20px rgba(78, 205, 196, 0.1);
+    box-shadow: var(--shadow-glow-gold),
+                inset 0 0 20px rgba(255, 215, 0, 0.2);
     transform: translateY(-2px);
 }
 
@@ -226,16 +327,17 @@ canvas {
 
 .form-group input:focus + .input-icon {
     opacity: 1;
-    color: #4ecdc4;
+    color: var(--xmas-gold);
     transform: translateY(-50%) scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.8));
 }
 
 .submit-btn {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #ffe66d 100%);
+    background: var(--gradient-xmas);
     background-size: 200% 200%;
-    border: none;
+    border: 3px solid var(--xmas-gold);
     border-radius: 15px;
     color: #fff;
     font-size: 1.3rem;
@@ -247,9 +349,24 @@ canvas {
     letter-spacing: 2px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
-                0 0 0 0 rgba(78, 205, 196, 0.4);
+    box-shadow: var(--shadow-glow-red),
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(255, 215, 0, 0.2);
     z-index: 1;
+    animation: buttonGlow 2s ease-in-out infinite;
+}
+
+@keyframes buttonGlow {
+    0%, 100% { 
+        box-shadow: var(--shadow-glow-red),
+                    0 10px 30px rgba(0, 0, 0, 0.5),
+                    inset 0 0 20px rgba(255, 215, 0, 0.2);
+    }
+    50% { 
+        box-shadow: var(--shadow-glow-gold),
+                    0 15px 40px rgba(0, 0, 0, 0.6),
+                    inset 0 0 30px rgba(255, 215, 0, 0.4);
+    }
 }
 
 .submit-btn::before {
@@ -269,9 +386,12 @@ canvas {
 
 .submit-btn:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(78, 205, 196, 0.5),
-                0 0 30px rgba(78, 205, 196, 0.3);
+    box-shadow: var(--shadow-glow-gold),
+                0 20px 50px rgba(0, 0, 0, 0.6),
+                inset 0 0 40px rgba(255, 215, 0, 0.5);
     background-position: right center;
+    border-color: var(--xmas-gold);
+    animation: none;
 }
 
 .submit-btn:active {
@@ -458,12 +578,33 @@ section {
     font-weight: 800;
     text-align: center;
     margin-bottom: 50px;
-    background: linear-gradient(45deg, #ffd700, #4ecdc4, #ffe66d);
+    background: var(--gradient-xmas);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite;
+    animation: gradientShift 3s ease infinite;
+    text-shadow: var(--shadow-glow-gold);
+    position: relative;
+}
+
+.section-title::before,
+.section-title::after {
+    content: '❄️';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    opacity: 0.5;
+    animation: twinkle 2s ease-in-out infinite;
+}
+
+.section-title::before {
+    left: -60px;
+}
+
+.section-title::after {
+    right: -60px;
 }
 
 /* Hero секция */
@@ -484,20 +625,45 @@ section {
     font-size: 5rem;
     font-weight: 800;
     margin-bottom: 20px;
-    text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-    background: linear-gradient(45deg, #ffd700, #ff6b6b, #4ecdc4, #ffe66d, #ffd700);
+    text-shadow: var(--shadow-glow-gold);
+    background: var(--gradient-xmas);
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite;
+    animation: gradientShift 3s ease infinite, pulse 2s ease-in-out infinite;
+    position: relative;
+}
+
+.hero-title::before {
+    content: '🎄';
+    position: absolute;
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    animation: rotate 3s linear infinite;
+    filter: drop-shadow(0 0 15px rgba(34, 139, 34, 0.8));
+}
+
+.hero-title::after {
+    content: '🎅';
+    position: absolute;
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4rem;
+    animation: bounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(220, 20, 60, 0.8));
 }
 
 .hero-subtitle {
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 15px;
-    color: #ffe66d;
+    color: var(--xmas-gold);
+    text-shadow: var(--shadow-glow-gold);
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .hero-description {
@@ -517,31 +683,69 @@ section {
 
 .feature-item {
     padding: 12px 24px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(10, 14, 39, 0.6);
     backdrop-filter: blur(10px);
     border-radius: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 215, 0, 0.3);
     font-weight: 600;
     font-size: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 0 10px rgba(255, 215, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    border-color: var(--xmas-gold);
+    box-shadow: var(--shadow-glow-gold),
+                0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
 }
 
 .hero-cta {
     display: inline-block;
     padding: 18px 40px;
-    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    background: var(--gradient-xmas);
     color: #fff;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.2rem;
     border-radius: 15px;
+    border: 2px solid var(--xmas-gold);
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    box-shadow: var(--shadow-glow-red);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cta::before {
+    content: '✨';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.hero-cta::after {
+    content: '✨';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: sparkle 1.5s ease-in-out infinite 0.5s;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: translateY(-50%) scale(0); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1); }
 }
 
 .hero-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(78, 205, 196, 0.5);
+    box-shadow: var(--shadow-glow-gold);
+    border-color: var(--xmas-gold);
 }
 
 /* Услуги */
