@@ -1366,7 +1366,8 @@ html {
     .hero-title::before,
     .hero-title::after,
     .section-title::before,
-    .section-title::after {
+    .section-title::after,
+    .glow-shapes {
         animation: none !important;
         display: none;
     }
