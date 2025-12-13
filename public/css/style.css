@@ -5,24 +5,32 @@
 }
 
 :root {
-    /* Новогодние цвета */
-    --xmas-red: #dc143c;
-    --xmas-green: #228b22;
-    --xmas-gold: #ffd700;
-    --xmas-silver: #c0c0c0;
-    --xmas-dark: #0a0e27;
-    --xmas-snow: #fffafa;
+    /* Нежные новогодние цвета России (пастельные, но не болотные) */
+    --xmas-red: #ff6b9d;           /* Нежный розово-красный - Дед Мороз, подарки */
+    --xmas-green: #90ee90;         /* Нежный светло-зелёный - ёлка, хвоя */
+    --xmas-gold: #ffd89b;          /* Нежный персиково-золотой - звёзды, гирлянды */
+    --xmas-yellow: #fff4a3;        /* Нежный жёлтый - праздничные акценты */
+    --xmas-white: #fffafa;         /* Белый - снег, зима */
+    --xmas-silver: #e0e0e0;        /* Нежный серебряный - иней, украшения */
+    --xmas-blue: #87ceeb;          /* Нежный голубой - зимнее небо */
+    --xmas-pink: #ffb6c1;          /* Нежный розовый - акценты */
+    --xmas-dark: #0a0e27;          /* Тёмный фон */
     
-    /* Градиенты */
-    --gradient-xmas: linear-gradient(135deg, #dc143c 0%, #ff6b6b 50%, #ffd700 100%);
-    --gradient-snow: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #2d1b4e 100%);
-    --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-    --gradient-red-green: linear-gradient(135deg, #dc143c 0%, #228b22 100%);
+    /* Градиенты в новогодних цветах */
+    --gradient-xmas: linear-gradient(135deg, var(--xmas-red) 0%, var(--xmas-green) 100%);
+    --gradient-snow: linear-gradient(135deg, var(--xmas-dark) 0%, #1a1a3e 30%, var(--xmas-blue) 60%, var(--xmas-dark) 100%);
+    --gradient-gold: linear-gradient(135deg, var(--xmas-gold) 0%, var(--xmas-yellow) 50%, var(--xmas-gold) 100%);
+    --gradient-red-green: linear-gradient(135deg, var(--xmas-red) 0%, var(--xmas-green) 100%);
+    --gradient-winter: linear-gradient(135deg, var(--xmas-blue) 0%, var(--xmas-silver) 50%, var(--xmas-white) 100%);
+    --gradient-holiday: linear-gradient(135deg, var(--xmas-red) 0%, var(--xmas-gold) 50%, var(--xmas-green) 100%);
     
-    /* Тени */
-    --shadow-glow-red: 0 0 20px rgba(220, 20, 60, 0.5), 0 0 40px rgba(220, 20, 60, 0.3);
-    --shadow-glow-gold: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
-    --shadow-glow-green: 0 0 20px rgba(34, 139, 34, 0.5), 0 0 40px rgba(34, 139, 34, 0.3);
+    /* Тени и свечение в нежных новогодних цветах */
+    --shadow-glow-red: 0 0 20px rgba(255, 107, 157, 0.5), 0 0 40px rgba(255, 107, 157, 0.3), 0 0 60px rgba(255, 107, 157, 0.2);
+    --shadow-glow-gold: 0 0 30px rgba(255, 216, 155, 0.5), 0 0 60px rgba(255, 216, 155, 0.3), 0 0 90px rgba(255, 216, 155, 0.2);
+    --shadow-glow-green: 0 0 20px rgba(144, 238, 144, 0.5), 0 0 40px rgba(144, 238, 144, 0.3), 0 0 60px rgba(144, 238, 144, 0.2);
+    --shadow-glow-blue: 0 0 20px rgba(135, 206, 235, 0.5), 0 0 40px rgba(135, 206, 235, 0.3);
+    --shadow-glow-silver: 0 0 20px rgba(224, 224, 224, 0.5), 0 0 40px rgba(224, 224, 224, 0.3);
+    --shadow-glow-pink: 0 0 20px rgba(255, 182, 193, 0.5), 0 0 40px rgba(255, 182, 193, 0.3);
 }
 
 body {
