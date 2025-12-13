@@ -51,6 +51,112 @@ body::before {
     pointer-events: none;
 }
 
+/* Гирлянды на фоне */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        /* Верхняя гирлянда */
+        radial-gradient(circle at 5% 5%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 10% 5%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 15% 5%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 20% 5%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 25% 5%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 30% 5%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 35% 5%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 40% 5%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 45% 5%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 50% 5%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 55% 5%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 60% 5%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 65% 5%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 70% 5%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 75% 5%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 80% 5%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 85% 5%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 90% 5%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 5%, #ff00ff 0%, transparent 2%),
+        /* Левая гирлянда */
+        radial-gradient(circle at 5% 10%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 5% 20%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 5% 30%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 5% 40%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 5% 50%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 5% 60%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 5% 70%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 5% 80%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 5% 90%, #ff00ff 0%, transparent 2%),
+        /* Правая гирлянда */
+        radial-gradient(circle at 95% 10%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 95% 20%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 30%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 40%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 95% 50%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 95% 60%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 95% 70%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 80%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 90%, #ff00ff 0%, transparent 2%),
+        /* Нижняя гирлянда */
+        radial-gradient(circle at 5% 95%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 10% 95%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 15% 95%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 20% 95%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 25% 95%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 30% 95%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 35% 95%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 40% 95%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 45% 95%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 50% 95%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 55% 95%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 60% 95%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 65% 95%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 70% 95%, #ff00ff 0%, transparent 2%),
+        radial-gradient(circle at 75% 95%, #00ffff 0%, transparent 2%),
+        radial-gradient(circle at 80% 95%, #ff0000 0%, transparent 2%),
+        radial-gradient(circle at 85% 95%, #00ff00 0%, transparent 2%),
+        radial-gradient(circle at 90% 95%, #ffff00 0%, transparent 2%),
+        radial-gradient(circle at 95% 95%, #ff00ff 0%, transparent 2%);
+    background-size: 100% 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+    animation: garlandTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes garlandTwinkle {
+    0%, 100% { opacity: 0.4; }
+    25% { opacity: 0.8; }
+    50% { opacity: 0.6; }
+    75% { opacity: 0.9; }
+}
+
+/* Анимация для динамических гирлянд */
+@keyframes lightBlink {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(0.8);
+        box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+        box-shadow: 0 0 15px currentColor, 0 0 30px currentColor, 0 0 45px currentColor;
+    }
+}
+
+.garland-line {
+    animation: garlandMove 20s linear infinite;
+}
+
+@keyframes garlandMove {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(100px); }
+}
+
 /* Декоративные звезды */
 .stars {
     position: fixed;
@@ -625,14 +731,72 @@ section {
     font-size: 5rem;
     font-weight: 800;
     margin-bottom: 20px;
-    text-shadow: var(--shadow-glow-gold);
-    background: var(--gradient-xmas);
-    background-size: 300% 300%;
+    color: #228b22;
+    text-shadow: 
+        /* 3D эффект - множественные тени для объема */
+        3px 3px 0px #1a6b1a,
+        6px 6px 0px #155015,
+        9px 9px 0px #0f3f0f,
+        12px 12px 0px #0a2f0a,
+        15px 15px 0px #051f05,
+        /* Свечение */
+        0 0 30px rgba(34, 139, 34, 0.9),
+        0 0 50px rgba(34, 139, 34, 0.7),
+        0 0 70px rgba(34, 139, 34, 0.5),
+        /* Игрушки на буквах */
+        20px 8px 0px #dc143c,
+        50px 12px 0px #ffd700,
+        80px 6px 0px #dc143c,
+        110px 15px 0px #ffd700,
+        140px 9px 0px #dc143c,
+        170px 11px 0px #ffd700,
+        200px 7px 0px #dc143c,
+        230px 13px 0px #ffd700,
+        260px 8px 0px #dc143c,
+        290px 14px 0px #ffd700,
+        320px 6px 0px #dc143c,
+        350px 12px 0px #ffd700,
+        380px 9px 0px #dc143c,
+        410px 15px 0px #ffd700,
+        /* Дополнительные игрушки */
+        35px 18px 0px #ff1493,
+        65px 22px 0px #00bfff,
+        95px 16px 0px #ff1493,
+        125px 20px 0px #00bfff,
+        155px 19px 0px #ff1493,
+        185px 23px 0px #00bfff,
+        215px 17px 0px #ff1493,
+        245px 21px 0px #00bfff,
+        275px 18px 0px #ff1493,
+        305px 22px 0px #00bfff,
+        335px 16px 0px #ff1493,
+        365px 20px 0px #00bfff,
+        395px 19px 0px #ff1493,
+        425px 23px 0px #00bfff;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #228b22 0px,
+            #2d9a2d 2px,
+            #228b22 4px,
+            #1a6b1a 6px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            #228b22 0px,
+            #2d9a2d 1px,
+            #228b22 2px,
+            #1a6b1a 3px
+        ),
+        linear-gradient(135deg, #228b22 0%, #2d9a2d 25%, #228b22 50%, #1a6b1a 75%, #228b22 100%);
+    background-size: 10px 10px, 10px 10px, 100% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 3s ease infinite, pulse 2s ease-in-out infinite;
+    animation: gradientShift 5s ease infinite, treeTexture 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
     position: relative;
+    transform: perspective(600px) rotateX(8deg);
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
 }
 
 .hero-title::before {
