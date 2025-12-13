@@ -429,7 +429,7 @@ canvas {
 }
 
 .order-form {
-    background: rgba(26, 26, 62, 0.75);
+    background: rgba(45, 45, 90, 0.85);
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 50px 40px;
@@ -530,9 +530,9 @@ canvas {
 .form-group input {
     width: 100%;
     padding: 16px 20px 16px 50px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.25);
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.15);
     color: #fff;
     font-size: 1rem;
     font-family: 'Montserrat', sans-serif;
