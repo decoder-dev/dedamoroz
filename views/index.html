@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎅 Заказ Деда Мороза - Новогоднее Чудо</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <canvas id="snowCanvas"></canvas>
+    
+    <div class="floating-elements">
+        <div class="floating-icon" style="top: 10%; left: 10%; animation-delay: 0s;">🎄</div>
+        <div class="floating-icon" style="top: 20%; right: 15%; animation-delay: 2s;">🎁</div>
+        <div class="floating-icon" style="bottom: 15%; left: 20%; animation-delay: 4s;">⭐</div>
+        <div class="floating-icon" style="bottom: 25%; right: 10%; animation-delay: 6s;">❄️</div>
+        <div class="floating-icon" style="top: 50%; left: 5%; animation-delay: 8s;">🎅</div>
+        <div class="floating-icon" style="top: 60%; right: 5%; animation-delay: 10s;">🦌</div>
+    </div>
+    
+    
+    <div class="container">
+        <div class="header">
+            <h1>🎅 Заказ Деда Мороза 🎄</h1>
+            <p class="subtitle">Создайте незабываемое новогоднее чудо!</p>
+            <p class="description">Заполните форму ниже, и мы свяжемся с вами для подтверждения заказа. Дед Мороз приедет точно в указанное время!</p>
+        </div>
+        
+        <form class="order-form" id="orderForm">
+            <div class="form-group">
+                <label for="name">
+                    <span class="icon">👤</span>
+                    Ваше имя
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Как к вам обращаться?" 
+                        required
+                        autocomplete="name"
+                    >
+                    <span class="input-icon">👤</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">
+                    <span class="icon">📍</span>
+                    Адрес доставки
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="address" 
+                        name="address" 
+                        placeholder="Полный адрес с квартирой" 
+                        required
+                        autocomplete="street-address"
+                    >
+                    <span class="input-icon">📍</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="datetime">
+                    <span class="icon">🕐</span>
+                    Дата и время визита
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="datetime-local" 
+                        id="datetime" 
+                        name="datetime" 
+                        required
+                        min=""
+                    >
+                    <span class="input-icon">🕐</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">
+                    <span class="icon">📞</span>
+                    Номер телефона
+                </label>
+                <div class="input-wrapper">
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="+7 (999) 123-45-67" 
+                        required
+                        pattern="[+]?[0-9\s\-()]+"
+                        autocomplete="tel"
+                    >
+                    <span class="input-icon">📞</span>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submitBtn">
+                ✨ Отправить заявку ✨
+            </button>
+            
+            <div class="message" id="message"></div>
+        </form>
+    </div>
+    
+    <!-- Универсальная версия - работает везде -->
+    <script>
+        // Определяем правильный путь к скрипту
+        (function() {
+            const isLocalFile = window.location.protocol === 'file:';
+            const scriptPath = isLocalFile 
+                ? '../public/js/main-universal.js' 
+                : '/js/main-universal.js';
+            
+            const script = document.createElement('script');
+            script.src = scriptPath;
+            script.onerror = function() {
+                console.error('Ошибка загрузки скрипта. Убедитесь, что запущен сервер: npm start');
+                alert('⚠️ Для работы сайта необходимо запустить сервер!\n\nЗапустите в терминале:\nnpm start\n\nЗатем откройте: http://localhost:3000');
+            };
+            document.body.appendChild(script);
+        })();
+    </script>
+</body>
+</html>
+
