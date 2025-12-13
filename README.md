@@ -172,7 +172,86 @@ curl -X POST http://localhost:3000/api/telegram/set-webhook?url=https://ваш-�
 
 MIT
 
-## 👨‍💻 Автор
+## 🌐 Установка домена
+
+### Настройка домена для продакшена
+
+1. **Купите домен** у регистратора (например, Namecheap, GoDaddy, Reg.ru)
+
+2. **Настройте DNS записи**:
+   - Добавьте A-запись, указывающую на IP вашего сервера
+   - Или используйте CNAME для поддомена
+
+3. **Настройте SSL сертификат** (обязательно для Telegram webhook):
+   ```bash
+   # Используйте Let's Encrypt (Certbot)
+   sudo apt-get install certbot
+   sudo certbot certonly --standalone -d ваш-домен.ru
+   ```
+
+4. **Настройте Nginx** (рекомендуется):
+   ```nginx
+   server {
+       listen 80;
+       server_name ваш-домен.ru;
+       return 301 https://$server_name$request_uri;
+   }
+
+   server {
+       listen 443 ssl http2;
+       server_name ваш-домен.ru;
+
+       ssl_certificate /etc/letsencrypt/live/ваш-домен.ru/fullchain.pem;
+       ssl_certificate_key /etc/letsencrypt/live/ваш-домен.ru/privkey.pem;
+
+       location / {
+           proxy_pass http://localhost:3000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_cache_bypass $http_upgrade;
+       }
+   }
+   ```
+
+5. **Обновите webhook** после настройки домена:
+   ```bash
+   curl -X POST https://ваш-домен.ru/api/telegram/set-webhook?url=https://ваш-домен.ru/api/telegram/webhook
+   ```
+
+6. **Используйте PM2** для автозапуска:
+   ```bash
+   npm install -g pm2
+   pm2 start server.js --name dedmoroz
+   pm2 save
+   pm2 startup
+   ```
+
+## 📦 Инициализация Git репозитория
+
+Если вы начинаете новый проект:
+
+```bash
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/decoder-dev/dedamoroz.git
+git push -u origin main
+```
+
+Для добавления всех файлов:
+
+```bash
+git add .
+git commit -m "Initial commit: Сайт для заказа Деда Мороза"
+git push -u origin main
+```
+
+## 👨‍💻 Авторы
+
+**messanpo** and **decoder-dev**
 
 Создано с ❤️ для новогодних праздников!
 
