@@ -60,7 +60,7 @@
         escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
-            div.textContent = text;
+            div.textContent = String(text);
             return div.innerHTML;
         }
     };
@@ -72,7 +72,28 @@
             this.container = document.getElementById('ordersContainer');
             this.searchBox = document.getElementById('searchBox');
             
-            this.init();
+            if (this.container) {
+                this.init();
+            }
+        }
+        
+        createElement(tag, attributes = {}, textContent = '') {
+            const element = document.createElement(tag);
+            Object.keys(attributes).forEach(key => {
+                if (key === 'className') {
+                    element.className = attributes[key];
+                } else if (key === 'style') {
+                    element.style.cssText = attributes[key];
+                } else if (key === 'textContent') {
+                    element.textContent = attributes[key];
+                } else {
+                    element.setAttribute(key, attributes[key]);
+                }
+            });
+            if (textContent) {
+                element.textContent = textContent;
+            }
+            return element;
         }
 
         init() {
@@ -158,54 +179,80 @@
             if (!this.container) return;
             
             if (orders.length === 0) {
-                this.container.innerHTML = `
-                    <div class="empty">
-                        <div class="empty-icon">📭</div>
-                        <p>Заявок не найдено</p>
-                    </div>
-                `;
+                this.container.innerHTML = '';
+                const emptyDiv = this.createElement('div', { className: 'empty' });
+                const iconDiv = this.createElement('div', { className: 'empty-icon' }, '📭');
+                const p = this.createElement('p', {}, 'Заявок не найдено');
+                emptyDiv.appendChild(iconDiv);
+                emptyDiv.appendChild(p);
+                this.container.appendChild(emptyDiv);
                 return;
             }
             
-            this.container.innerHTML = orders.map((order, index) => {
+            this.container.innerHTML = '';
+            orders.forEach((order, index) => {
                 const formattedDate = UIHelper.formatDate(order.datetime);
                 const createdFormatted = UIHelper.formatDate(order.created_at);
                 
-                return `
-                    <div class="order-card" style="animation-delay: ${index * 0.1}s">
-                        <div class="order-header">
-                            <div>
-                                <div class="order-id">Заявка #${order.id}</div>
-                                <div class="order-date">Создана: ${createdFormatted}</div>
-                                ${order.status ? `<div class="order-status status-${order.status}">${this.getStatusLabel(order.status)}</div>` : ''}
-                            </div>
-                            <button class="delete-btn" onclick="adminPanel.deleteOrder(${order.id})" title="Удалить заявку">
-                                🗑️ Удалить
-                            </button>
-                        </div>
-                        <div class="order-info">
-                            ${order.name ? `
-                            <div class="info-item">
-                                <strong>👤 Имя:</strong>
-                                <span>${UIHelper.escapeHtml(order.name)}</span>
-                            </div>
-                            ` : ''}
-                            <div class="info-item">
-                                <strong>📍 Адрес:</strong>
-                                <span>${UIHelper.escapeHtml(order.address)}</span>
-                            </div>
-                            <div class="info-item">
-                                <strong>🕐 Дата и время:</strong>
-                                <span>${formattedDate}</span>
-                            </div>
-                            <div class="info-item">
-                                <strong>📞 Телефон:</strong>
-                                <span>${UIHelper.escapeHtml(order.phone)}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
+                // Безопасное создание элементов
+                const card = this.createElement('div', { 
+                    className: 'order-card',
+                    style: `animation-delay: ${index * 0.1}s`
+                });
+                
+                const header = this.createElement('div', { className: 'order-header' });
+                const headerLeft = this.createElement('div');
+                
+                const orderId = this.createElement('div', { className: 'order-id' }, `Заявка #${order.id}`);
+                const orderDate = this.createElement('div', { className: 'order-date' }, `Создана: ${createdFormatted}`);
+                
+                headerLeft.appendChild(orderId);
+                headerLeft.appendChild(orderDate);
+                
+                if (order.status) {
+                    const statusDiv = this.createElement('div', { 
+                        className: `order-status status-${order.status}` 
+                    }, this.getStatusLabel(order.status));
+                    headerLeft.appendChild(statusDiv);
+                }
+                
+                const deleteBtn = this.createElement('button', { 
+                    className: 'delete-btn',
+                    title: 'Удалить заявку'
+                }, '🗑️ Удалить');
+                deleteBtn.addEventListener('click', () => this.deleteOrder(order.id));
+                
+                header.appendChild(headerLeft);
+                header.appendChild(deleteBtn);
+                
+                const info = this.createElement('div', { className: 'order-info' });
+                
+                if (order.name) {
+                    const nameItem = this.createElement('div', { className: 'info-item' });
+                    nameItem.appendChild(this.createElement('strong', {}, '👤 Имя:'));
+                    nameItem.appendChild(this.createElement('span', {}, UIHelper.escapeHtml(order.name)));
+                    info.appendChild(nameItem);
+                }
+                
+                const addressItem = this.createElement('div', { className: 'info-item' });
+                addressItem.appendChild(this.createElement('strong', {}, '📍 Адрес:'));
+                addressItem.appendChild(this.createElement('span', {}, UIHelper.escapeHtml(order.address)));
+                info.appendChild(addressItem);
+                
+                const datetimeItem = this.createElement('div', { className: 'info-item' });
+                datetimeItem.appendChild(this.createElement('strong', {}, '🕐 Дата и время:'));
+                datetimeItem.appendChild(this.createElement('span', {}, formattedDate));
+                info.appendChild(datetimeItem);
+                
+                const phoneItem = this.createElement('div', { className: 'info-item' });
+                phoneItem.appendChild(this.createElement('strong', {}, '📞 Телефон:'));
+                phoneItem.appendChild(this.createElement('span', {}, UIHelper.escapeHtml(order.phone)));
+                info.appendChild(phoneItem);
+                
+                card.appendChild(header);
+                card.appendChild(info);
+                this.container.appendChild(card);
+            });
         }
 
         getStatusLabel(status) {

@@ -2,8 +2,9 @@ const { body, validationResult } = require('express-validator');
 
 const validateOrder = [
     body('name')
-        .optional()
         .trim()
+        .notEmpty()
+        .withMessage('Имя обязательно для заполнения')
         .isLength({ min: 2, max: 100 })
         .withMessage('Имя должно быть от 2 до 100 символов')
         .escape(),
