@@ -228,27 +228,6 @@ MIT
    pm2 startup
    ```
 
-## 📦 Инициализация Git репозитория
-
-Если вы начинаете новый проект:
-
-```bash
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/decoder-dev/dedamoroz.git
-git push -u origin main
-```
-
-Для добавления всех файлов:
-
-```bash
-git add .
-git commit -m "Initial commit: Сайт для заказа Деда Мороза"
-git push -u origin main
-```
-
 ## 👨‍💻 Авторы
 
 **messanpo** and **decoder-dev**
