@@ -168,6 +168,95 @@ body::after {
     100% { transform: translateX(calc(100vw + 100px)) translateZ(0); }
 }
 
+/* Декоративные светящиеся формы */
+.glow-shapes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.glow-shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: glowFloat 20s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 600px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.6) 0%, rgba(75, 0, 130, 0.3) 50%, transparent 70%);
+    top: -200px;
+    left: -150px;
+    animation-delay: 0s;
+    animation-duration: 25s;
+}
+
+.shape-2 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(186, 85, 211, 0.5) 0%, rgba(138, 43, 226, 0.2) 50%, transparent 70%);
+    top: 10%;
+    right: -100px;
+    animation-delay: 2s;
+    animation-duration: 22s;
+}
+
+.shape-3 {
+    width: 700px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(147, 112, 219, 0.5) 0%, rgba(75, 0, 130, 0.3) 50%, transparent 70%);
+    bottom: -100px;
+    right: -200px;
+    animation-delay: 4s;
+    animation-duration: 28s;
+}
+
+.shape-4 {
+    width: 400px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(221, 160, 221, 0.4) 0%, rgba(138, 43, 226, 0.2) 50%, transparent 70%);
+    top: 50%;
+    left: 10%;
+    animation-delay: 6s;
+    animation-duration: 24s;
+}
+
+.shape-5 {
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(186, 85, 211, 0.2) 50%, transparent 70%);
+    top: 20%;
+    right: 20%;
+    animation-delay: 8s;
+    animation-duration: 26s;
+}
+
+@keyframes glowFloat {
+    0%, 100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 0.4;
+    }
+    25% {
+        transform: translate(30px, -40px) scale(1.1) rotate(5deg);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(-20px, 30px) scale(0.9) rotate(-5deg);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translate(40px, 20px) scale(1.05) rotate(3deg);
+        opacity: 0.45;
+    }
+}
+
 /* Декоративные звезды */
 .stars {
     position: fixed;
