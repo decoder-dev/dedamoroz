@@ -864,16 +864,29 @@ section {
     font-size: 5rem;
     font-weight: 800;
     margin-bottom: 20px;
-    background: linear-gradient(135deg, #9acd32 0%, #adff2f 50%, #32cd32 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(154, 205, 50, 0.8),
-                 0 0 50px rgba(173, 255, 47, 0.6),
-                 0 0 70px rgba(50, 205, 50, 0.4);
-    animation: gradientShift 5s ease infinite;
-    will-change: background-position;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: 'Montserrat', 'Arial', sans-serif;
+    line-height: 1.2;
+}
+
+.hero-text {
+    color: var(--xmas-gold);
+    text-shadow: var(--shadow-glow-gold);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.hero-emoji-left,
+.hero-emoji-right {
+    font-size: 4rem;
+    display: inline-block;
+    line-height: 1;
+    filter: drop-shadow(0 0 15px rgba(154, 205, 50, 0.8));
+    animation: bounce 2s ease-in-out infinite;
 }
 
 .hero-title::before {
