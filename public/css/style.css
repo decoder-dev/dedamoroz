@@ -150,11 +150,12 @@ body::after {
 
 .garland-line {
     animation: garlandMove 20s linear infinite;
+    will-change: transform;
 }
 
 @keyframes garlandMove {
-    0% { transform: translateX(-100px); }
-    100% { transform: translateX(100px); }
+    0% { transform: translateX(-100px) translateZ(0); }
+    100% { transform: translateX(calc(100vw + 100px)) translateZ(0); }
 }
 
 /* Декоративные звезды */
@@ -175,6 +176,7 @@ body::after {
     background: #fff;
     border-radius: 50%;
     animation: twinkle 3s infinite;
+    will-change: opacity, transform;
 }
 
 @keyframes twinkle {
@@ -235,9 +237,10 @@ canvas {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 3s ease infinite, pulse 2s ease-in-out infinite;
+    animation: gradientShift 3s ease infinite;
     letter-spacing: 2px;
     position: relative;
+    will-change: background-position;
 }
 
 .header h1::before {
@@ -247,7 +250,7 @@ canvas {
     top: 50%;
     transform: translateY(-50%);
     font-size: 3rem;
-    animation: rotate 3s linear infinite;
+    animation: rotateTree 3s linear infinite;
     filter: drop-shadow(0 0 10px rgba(34, 139, 34, 0.6));
 }
 
@@ -267,9 +270,19 @@ canvas {
     50% { transform: scale(1.05); }
 }
 
-@keyframes rotate {
+@keyframes pulseOpacity {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes rotateTree {
     from { transform: translateY(-50%) rotate(0deg); }
     to { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes rotateForm {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 @keyframes bounce {
@@ -312,6 +325,7 @@ canvas {
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
     border: 2px solid rgba(255, 215, 0, 0.3);
     animation: slideUp 1s ease-out 0.3s both, formGlow 3s ease-in-out infinite;
+    will-change: box-shadow, transform, opacity;
     position: relative;
     overflow: hidden;
 }
@@ -343,7 +357,7 @@ canvas {
         radial-gradient(circle at 30% 30%, rgba(220, 20, 60, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 70% 70%, rgba(34, 139, 34, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
+    animation: rotateForm 20s linear infinite;
     pointer-events: none;
 }
 
@@ -358,10 +372,6 @@ canvas {
     pointer-events: none;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
 
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(50px); }
@@ -460,6 +470,7 @@ canvas {
                 inset 0 0 20px rgba(255, 215, 0, 0.2);
     z-index: 1;
     animation: buttonGlow 2s ease-in-out infinite;
+    will-change: box-shadow;
 }
 
 @keyframes buttonGlow {
@@ -793,9 +804,11 @@ section {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite, treeTexture 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+    animation: gradientShift 5s ease infinite, treeTexture 3s ease-in-out infinite;
+    will-change: background-position, transform;
     position: relative;
-    transform: perspective(600px) rotateX(8deg);
+    transform: perspective(600px) rotateX(8deg) translateZ(0);
+    transform-style: preserve-3d;
     filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.6));
 }
 
@@ -806,7 +819,7 @@ section {
     top: 50%;
     transform: translateY(-50%);
     font-size: 4rem;
-    animation: rotate 3s linear infinite;
+    animation: rotateTree 3s linear infinite;
     filter: drop-shadow(0 0 15px rgba(34, 139, 34, 0.8));
 }
 
@@ -827,7 +840,8 @@ section {
     margin-bottom: 15px;
     color: var(--xmas-gold);
     text-shadow: var(--shadow-glow-gold);
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulseOpacity 2s ease-in-out infinite;
+    will-change: opacity;
 }
 
 .hero-description {
