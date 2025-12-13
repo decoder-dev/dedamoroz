@@ -429,7 +429,7 @@ canvas {
 }
 
 .order-form {
-    background: rgba(10, 14, 39, 0.7);
+    background: rgba(26, 26, 62, 0.75);
     backdrop-filter: blur(20px);
     border-radius: 30px;
     padding: 50px 40px;
