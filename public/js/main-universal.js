@@ -225,12 +225,15 @@
         }
     };
     
-    // Создание звезд
+    // Создание звезд (оптимизировано для мобильных)
     function createStars() {
         const starsContainer = document.getElementById('stars');
         if (!starsContainer) return;
         
-        const starCount = 100;
+        // Меньше звезд на мобильных для производительности
+        const isMobile = window.innerWidth <= 768;
+        const starCount = isMobile ? 30 : 100;
+        
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.className = 'star';
@@ -266,7 +269,10 @@
     function generateSnowflakes() {
         if (!canvas) return;
         snowflakes = [];
-        const count = Math.min(400, Math.floor((canvas.width * canvas.height) / 5000));
+        // Меньше снежинок на мобильных
+        const isMobile = window.innerWidth <= 768;
+        const maxCount = isMobile ? 100 : 400;
+        const count = Math.min(maxCount, Math.floor((canvas.width * canvas.height) / (isMobile ? 10000 : 5000)));
         for (let i = 0; i < count; i++) {
             snowflakes.push({
                 x: Math.random() * canvas.width,

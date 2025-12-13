@@ -1,5 +1,12 @@
-// Динамическое создание гирлянд
+// Динамическое создание гирлянд (только для десктопа)
 (function() {
+    // Проверяем, не мобильное ли устройство
+    const isMobile = window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        return; // Не создаем гирлянды на мобильных
+    }
+    
     function createGarland() {
         const garland = document.createElement('div');
         garland.className = 'garland-line';
@@ -38,8 +45,8 @@
         document.body.appendChild(garland);
     }
 
-    // Создаем несколько гирлянд
-    for (let i = 0; i < 4; i++) {
+    // Создаем только 2 гирлянды для производительности
+    for (let i = 0; i < 2; i++) {
         setTimeout(() => createGarland(), i * 500);
     }
 })();

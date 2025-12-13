@@ -153,6 +153,16 @@ body::after {
     will-change: transform;
 }
 
+@media (max-width: 768px) {
+    .garland-line {
+        display: none;
+    }
+    
+    body::after {
+        display: none;
+    }
+}
+
 @keyframes garlandMove {
     0% { transform: translateX(-100px) translateZ(0); }
     100% { transform: translateX(calc(100vw + 100px)) translateZ(0); }
@@ -252,6 +262,13 @@ canvas {
     font-size: 3rem;
     animation: rotateTree 3s linear infinite;
     filter: drop-shadow(0 0 10px rgba(34, 139, 34, 0.6));
+}
+
+@media (max-width: 768px) {
+    .header h1::before,
+    .header h1::after {
+        display: none;
+    }
 }
 
 .header h1::after {
@@ -358,6 +375,12 @@ canvas {
         radial-gradient(circle at 70% 70%, rgba(34, 139, 34, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
     animation: rotateForm 20s linear infinite;
+}
+
+@media (max-width: 768px) {
+    .order-form::before {
+        display: none;
+    }
     pointer-events: none;
 }
 
@@ -1232,49 +1255,267 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Отключение анимаций для пользователей с prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Мобильная адаптация */
 @media (max-width: 768px) {
+    /* Отключаем тяжелые анимации на мобильных */
+    body::after,
+    .order-form::before,
+    .floating-icon,
+    .header h1::before,
+    .header h1::after,
+    .hero-title::before,
+    .hero-title::after,
+    .section-title::before,
+    .section-title::after {
+        animation: none !important;
+        display: none;
+    }
+    
+    .garland-line {
+        display: none;
+    }
+    
+    /* Навигация */
+    .nav-container {
+        flex-wrap: wrap;
+        padding: 10px 15px;
+    }
+    
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+    
     .nav-links {
-        gap: 15px;
-        font-size: 0.85rem;
+        gap: 10px;
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
     }
     
     .nav-links a {
-        padding: 6px 12px;
+        padding: 6px 10px;
+    }
+    
+    .nav-cta {
+        padding: 8px 15px !important;
+        font-size: 0.75rem;
+    }
+    
+    /* Hero секция */
+    .hero-section {
+        padding-top: 120px;
+        min-height: auto;
+        padding-bottom: 60px;
     }
     
     .hero-title {
-        font-size: 3rem;
-    }
-    
-    .section-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 0px #1a6b1a, 4px 4px 0px #155015 !important;
+        transform: none !important;
     }
     
     .hero-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        animation: none;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        padding: 0 15px;
     }
     
     .hero-features {
         flex-direction: column;
         align-items: center;
+        gap: 10px;
+        padding: 0 15px;
     }
-}
-
-@media (max-width: 480px) {
-    .header h1 {
-        font-size: 2.2rem;
+    
+    .feature-item {
+        width: 100%;
+        max-width: 300px;
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+    
+    .hero-cta {
+        padding: 15px 30px;
+        font-size: 1rem;
+    }
+    
+    /* Секции */
+    section {
+        padding: 50px 15px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        transform: none !important;
+    }
+    
+    /* Услуги */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 30px 20px;
+    }
+    
+    /* Цены */
+    .prices-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .price-card {
+        padding: 30px 20px;
+    }
+    
+    .price-card.featured {
+        transform: none;
+    }
+    
+    .price-amount {
+        font-size: 2rem;
+    }
+    
+    /* Отзывы */
+    .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .review-card {
+        padding: 20px;
+    }
+    
+    /* Форма заказа */
+    .order-section {
+        padding: 60px 15px;
     }
     
     .order-form {
         padding: 30px 20px;
+        border-radius: 20px;
+        animation: slideUp 0.5s ease-out both !important;
     }
     
+    .order-form::before,
+    .order-form::after {
+        display: none;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        font-size: 1rem;
+    }
+    
+    .form-group input {
+        padding: 14px 18px 14px 45px;
+        font-size: 0.95rem;
+    }
+    
+    .submit-btn {
+        padding: 16px;
+        font-size: 1.1rem;
+        animation: none !important;
+    }
+    
+    /* Футер */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-section {
+        text-align: center;
+    }
+    
+    /* Заголовки */
+    .header h1 {
+        font-size: 2.2rem;
+        animation: none !important;
+    }
+    
+    .header .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .header .description {
+        font-size: 0.95rem;
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Еще более компактная версия */
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .section-title {
+        font-size: 1.7rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
     }
     
     .nav-links {
         display: none;
+    }
+    
+    .nav-container {
+        justify-content: center;
+    }
+    
+    .order-form {
+        padding: 25px 15px;
+    }
+    
+    .service-card,
+    .price-card,
+    .review-card {
+        padding: 20px 15px;
+    }
+    
+    .hero-cta {
+        padding: 12px 25px;
+        font-size: 0.9rem;
+    }
+    
+    .submit-btn {
+        font-size: 1rem;
+        padding: 14px;
+    }
+    
+    .container {
+        padding: 15px;
+    }
+    
+    section {
+        padding: 40px 10px;
     }
 }
 
