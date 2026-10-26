@@ -1,10 +1,11 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const config = require('./config');
 
 class Database {
-    constructor(dbPath = 'orders.db') {
+    constructor(dbPath = config.dbPath) {
         this.db = null;
-        this.dbPath = path.join(__dirname, '..', dbPath);
+        this.dbPath = dbPath === ':memory:' ? dbPath : path.resolve(__dirname, '..', dbPath);
     }
 
     connect() {
